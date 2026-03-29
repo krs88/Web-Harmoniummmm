@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Harmonium Pro</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>🎹 Web Harmonium</h1>
+
+<div id="keys" class="keys"></div>
+
+<div class="controls">
+  <button id="play">▶</button>
+  <button id="pause">⏸</button>
+  <button id="stop">⏹</button>
+</div>
+
+<div>
+  Speed: <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1">
+</div>
+
+<select id="songSelect"></select>
+
+<textarea id="noteInput" placeholder="Paste notes here..."></textarea>
+<button id="convert">Convert & Play</button>
+
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
