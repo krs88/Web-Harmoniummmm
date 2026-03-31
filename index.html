@@ -31,6 +31,11 @@
   <textarea id="songTextInput" placeholder="Paste lyrics or note words (Do Re Mi / C D E / sa re ga) and click AI convert..."></textarea>
   <button id="aiConvert">🤖 AI Convert Song Text to Notes</button>
 
+  <label for="soundFiles">Sound Connection (optional custom samples)</label>
+  <input id="soundFiles" type="file" accept="audio/*" multiple>
+  <button id="connectSounds">🔌 Connect Sound Files</button>
+  <p id="soundStatus" class="status">Using built-in/fallback sounds.</p>
+
   <script type="module" src="app.js"></script>
 </body>
 </html>

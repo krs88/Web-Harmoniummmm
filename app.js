@@ -1,4 +1,4 @@
-import { initSounds, playSound } from "./sounds.js";
+import { initSounds, playSound, connectSoundFiles } from "./sounds.js";
 import { parseNotes, convertSongTextToNotes } from "./parser.js";
 import { loadSong, play, pause, stop, setSpeed } from "./player.js";
 import { songs } from "./songs.js";
@@ -16,6 +16,8 @@ const soundMap = {
 await initSounds(soundMap);
 
 const keysRoot = document.getElementById("keys");
+const soundStatus = document.getElementById("soundStatus");
+
 Object.keys(soundMap).forEach((key) => {
   const button = document.createElement("button");
   button.className = "key";
@@ -80,4 +82,21 @@ document.getElementById("aiConvert").onclick = () => {
   document.getElementById("noteInput").value = aiNotes
     .map((n) => (n.rest ? "-" : n.key))
     .join(" ");
+};
+
+// Custom sound connection
+document.getElementById("connectSounds").onclick = async () => {
+  const files = document.getElementById("soundFiles").files;
+
+  if (!files || files.length === 0) {
+    soundStatus.textContent = "Select audio files first (names should include E,4,5,U,8,9,P).";
+    return;
+  }
+
+  const count = await connectSoundFiles(files);
+  if (count > 0) {
+    soundStatus.textContent = `Connected ${count} custom sound file(s).`;
+  } else {
+    soundStatus.textContent = "No matching files found. Use names like E.mp3, 4.wav, P.ogg.";
+  }
 };

@@ -10,13 +10,17 @@ const fallbackFreq = {
   P: 493.88
 };
 
+async function decodeArrayBuffer(arrayBuffer) {
+  return audioCtx.decodeAudioData(arrayBuffer);
+}
+
 async function loadSound(url) {
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Sound not found: ${url}`);
   }
   const arrayBuffer = await res.arrayBuffer();
-  return audioCtx.decodeAudioData(arrayBuffer);
+  return decodeArrayBuffer(arrayBuffer);
 }
 
 export async function initSounds(map) {
@@ -25,10 +29,37 @@ export async function initSounds(map) {
     try {
       buffers[key] = await loadSound(url);
     } catch {
-      // Keep working with oscillator fallback if static assets are missing.
       buffers[key] = null;
     }
   }
+}
+
+function inferKeyFromFilename(name) {
+  const stem = name.split(".")[0].toUpperCase();
+  const candidate = stem.slice(-1);
+  if (fallbackFreq[candidate]) return candidate;
+  if (fallbackFreq[stem]) return stem;
+  return null;
+}
+
+export async function connectSoundFiles(fileList) {
+  const files = Array.from(fileList || []);
+  let connected = 0;
+
+  for (const file of files) {
+    const key = inferKeyFromFilename(file.name);
+    if (!key) continue;
+
+    try {
+      const buffer = await decodeArrayBuffer(await file.arrayBuffer());
+      buffers[key] = buffer;
+      connected += 1;
+    } catch {
+      // Ignore invalid audio files and continue.
+    }
+  }
+
+  return connected;
 }
 
 function playTone(freq) {

@@ -56,3 +56,9 @@ label {
   margin-top: 14px;
   font-weight: 600;
 }
+
+.status {
+  margin-top: 4px;
+  color: #9ef7dd;
+  font-size: 0.95rem;
+}
