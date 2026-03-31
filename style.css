@@ -2,25 +2,63 @@ body {
   background: #0f0f0f;
   color: white;
   text-align: center;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 16px;
 }
 
 .keys {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  grid-template-columns: repeat(7, minmax(60px, 80px));
+  justify-content: center;
   gap: 10px;
   padding: 20px;
 }
 
 .key {
-  padding: 20px;
+  padding: 16px;
   background: #222;
+  border: 1px solid #333;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 0 10px #00ffcc;
+  color: #fff;
+  box-shadow: 0 0 10px #00ffcc55;
 }
 
 .key.active {
   background: #00ffcc;
   color: black;
+}
+
+.controls {
+  margin: 10px 0 16px;
+}
+
+button,
+select,
+input,
+textarea {
+  margin: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+textarea {
+  width: min(760px, 92vw);
+  min-height: 86px;
+  background: #111;
+  color: #fff;
+}
+
+label {
+  display: block;
+  margin-top: 14px;
+  font-weight: 600;
+}
+
+.status {
+  margin-top: 4px;
+  color: #9ef7dd;
+  font-size: 0.95rem;
 }
